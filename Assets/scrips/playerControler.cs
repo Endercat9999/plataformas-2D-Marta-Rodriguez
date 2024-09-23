@@ -6,6 +6,7 @@ public class playerControler : MonoBehaviour
 {
 
     private Rigidbody2D characterRigidbody;
+    public static Animator characterAnimator;
     private float horizontalInput;
    [SerializeField]private float characterSpeed = 4.5f;
    [SerializeField]private float jumpForce = 8; 
@@ -14,6 +15,7 @@ public class playerControler : MonoBehaviour
     void Awake()
     {
         characterRigidbody = GetComponent<Rigidbody2D>();
+        characterAnimator = GetComponent <Animator>();
     }
 
     // Start is called before the first frame update
@@ -29,18 +31,28 @@ public class playerControler : MonoBehaviour
         if(horizontalInput < 0)
         {
            transform.rotation = Quaternion.Euler(0, 180, 0); 
+           characterAnimator.SetBool("isruning", true);
         }
 
         else if(horizontalInput > 0)
         {
-           transform.rotation = Quaternion.Euler(0, 0, 0); 
+           transform.rotation = Quaternion.Euler(0, 0, 0);
+           characterAnimator.SetBool("isruning", true); 
+        }
+        else
+        {
+            characterAnimator.SetBool("isruning", false);
         }
 
         if(Input.GetButtonDown("Jump") && GroundSensor.isGrounded)
         {
            characterRigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse); 
+           characterAnimator.SetBool("isjumping", true);
         }
+       
+        
     }
+     
 
     
     void FixedUpdate()
