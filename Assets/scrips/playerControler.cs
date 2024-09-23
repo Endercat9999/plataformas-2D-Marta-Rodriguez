@@ -10,6 +10,7 @@ public class playerControler : MonoBehaviour
     private float horizontalInput;
    [SerializeField]private float characterSpeed = 4.5f;
    [SerializeField]private float jumpForce = 8; 
+   [SerializeField] private int healPoints = 5;
 
 
     void Awake()
@@ -60,12 +61,30 @@ public class playerControler : MonoBehaviour
         characterRigidbody.velocity = new Vector2(horizontalInput * characterSpeed, characterRigidbody.velocity.y); 
     }
 
+    void TakeDamage()
+    {
+        healPoints--;
+        characterAnimator.SetTrigger("ishurt");
+
+        if(healPoints == 0)
+        {
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        characterAnimator.SetBool("isDeath", true);
+        Destroy(gameObject, 0.30f);
+    }
+
     void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.layer == 8)
         {
-            characterAnimator.SetTrigger("ishurt");
+            //characterAnimator.SetTrigger("ishurt");
             //Destroy(gameObject, 0.3f);
+            TakeDamage();
         }
     }
 }
