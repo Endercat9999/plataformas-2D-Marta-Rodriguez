@@ -11,6 +11,7 @@ public class playerControler : MonoBehaviour
    [SerializeField]private float characterSpeed = 4.5f;
    [SerializeField]private float jumpForce = 8; 
    [SerializeField] private int healPoints = 5;
+   private bool isAttacking;
 
 
     void Awake()
@@ -27,7 +28,40 @@ public class playerControler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        horizontalInput = Input.GetAxis("Horizontal");
+       Movement();
+
+        if(Input.GetButtonDown("Jump") && GroundSensor.isGrounded && !isAttacking)
+        {
+           Jump();
+        }
+       
+       if(Input.GetButtonDown("Fire1") && GroundSensor.isGrounded && !isAttacking)
+       {
+         Attack();
+       }
+        
+    }
+     
+
+    
+    void FixedUpdate()
+    {
+        if(isAttacking)
+        {
+         characterRigidbody.velocity = new Vector2(0, characterRigidbody.velocity.y);
+
+        }
+        else
+        {
+          characterRigidbody.velocity = new Vector2(horizontalInput * characterSpeed, characterRigidbody.velocity.y);
+
+        }
+         
+    }
+
+    void Movement()
+    {
+         horizontalInput = Input.GetAxis("Horizontal");
 
         if(horizontalInput < 0)
         {
@@ -45,37 +79,53 @@ public class playerControler : MonoBehaviour
             characterAnimator.SetBool("isruning", false);
         }
 
-        if(Input.GetButtonDown("Jump") && GroundSensor.isGrounded)
-        {
-           characterRigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse); 
-           characterAnimator.SetBool("isjumping", true);
-        }
-       
-        
     }
-     
+
+    void Jump()
+    {
+        characterRigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse); 
+        characterAnimator.SetBool("isjumping", true);
+    }
+
+    void Attack()
+    {
+        StartCoroutine(AttackAnimation());
+        characterAnimator.SetTrigger("Attack");
+    }
+
+    IEnumerator AttackAnimation()
+    {
+        isAttacking = true;
+
+        yield return new WaitForSeconds(0.5f);
+
+        isAttacking = false;
+    }
+
 
     
-    void FixedUpdate()
-    {
-        characterRigidbody.velocity = new Vector2(horizontalInput * characterSpeed, characterRigidbody.velocity.y); 
-    }
 
     void TakeDamage()
     {
         healPoints--;
         characterAnimator.SetTrigger("ishurt");
 
-        if(healPoints == 0)
+        if(healPoints <= 0)
         {
             Die();
         }
+        else
+        {
+         characterAnimator.SetTrigger("ishurt");
+        }
+
+
     }
 
     void Die()
     {
-        characterAnimator.SetBool("isDeath", true);
-        Destroy(gameObject, 0.30f);
+        characterAnimator.SetTrigger("isDeath");
+        Destroy(gameObject, 0.6f);
     }
 
     void OnCollisionEnter2D(Collision2D collision)
