@@ -11,7 +11,6 @@ public class playerControler : MonoBehaviour
    [SerializeField]private float characterSpeed = 4.5f;
    [SerializeField]private float jumpForce = 8; 
    [SerializeField] private int healPoints = 5;
-   [SerializeField] private int enemyHealPoints = 7;
    private bool isAttacking;
    [SerializeField] private Transform attackHitBox;
    [SerializeField] private float attackRadius;
@@ -69,8 +68,21 @@ public class playerControler : MonoBehaviour
 
         if(horizontalInput < 0)
         {
-           transform.rotation = Quaternion.Euler(0, 180, 0); 
+           
+           if(isAttacking)
+           {
+            characterAnimator.SetTrigger("isRunAttacking");
+            characterAnimator.SetBool("isruning", true);
+           }
+           else
+           {
+
+            transform.rotation = Quaternion.Euler(0, 180, 0); 
            characterAnimator.SetBool("isruning", true);
+
+           }
+           
+           
         }
 
         else if(horizontalInput > 0)
@@ -113,6 +125,9 @@ public class playerControler : MonoBehaviour
                 //Destroy(enemy.gameObject);
                 Rigidbody2D enemyRigidBody = enemy.GetComponent<Rigidbody2D>();
                 enemyRigidBody.AddForce(transform.right + transform.up  * 2, ForceMode2D.Impulse);
+
+                Enemy enemyScript = enemy.GetComponent<Enemy>();
+                enemyScript.TakeDamage();
             }
         }
 
