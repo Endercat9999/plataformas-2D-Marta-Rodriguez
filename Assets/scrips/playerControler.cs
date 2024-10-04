@@ -11,7 +11,11 @@ public class playerControler : MonoBehaviour
    [SerializeField]private float characterSpeed = 4.5f;
    [SerializeField]private float jumpForce = 8; 
    [SerializeField] private int healPoints = 5;
+   [SerializeField] private int enemyHealPoints = 7;
    private bool isAttacking;
+   [SerializeField] private Transform attackHitBox;
+   [SerializeField] private float attackRadius;
+   
 
 
     void Awake()
@@ -78,6 +82,7 @@ public class playerControler : MonoBehaviour
         {
             characterAnimator.SetBool("isruning", false);
         }
+        
 
     }
 
@@ -96,6 +101,20 @@ public class playerControler : MonoBehaviour
     IEnumerator AttackAnimation()
     {
         isAttacking = true;
+
+        yield return new WaitForSeconds(0.2f);
+
+        Collider2D[] collider = Physics2D.OverlapCircleAll(attackHitBox.position, attackRadius);
+
+        foreach(Collider2D enemy in collider)
+        {
+            if(enemy.gameObject.CompareTag("Mimic"))
+            {
+                //Destroy(enemy.gameObject);
+                Rigidbody2D enemyRigidBody = enemy.GetComponent<Rigidbody2D>();
+                enemyRigidBody.AddForce(transform.right + transform.up  * 2, ForceMode2D.Impulse);
+            }
+        }
 
         yield return new WaitForSeconds(0.5f);
 
@@ -136,5 +155,11 @@ public class playerControler : MonoBehaviour
             //Destroy(gameObject, 0.3f);
             TakeDamage();
         }
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(attackHitBox.position, attackRadius);
     }
 }
