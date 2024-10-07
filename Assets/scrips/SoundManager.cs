@@ -12,11 +12,16 @@ public class SoundManager : MonoBehaviour
 
    public AudioClip jumpAudio;
 
-   public AudioClip takeDamageAudio;
-
    public AudioClip dieAudio;
 
    public AudioClip attackAudio;
+
+   public AudioClip hurtAudio;
+
+   public AudioClip pauseAudio;
+
+   public AudioClip runAudio;
+   
    
    void Awake()
    {

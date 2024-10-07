@@ -103,6 +103,7 @@ public class playerControler : MonoBehaviour
 
     void Jump()
     {
+        SoundManager.instance.PlaySFX(SoundManager.instance.jumpAudio);
         characterRigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse); 
         characterAnimator.SetBool("isjumping", true);
     }
@@ -147,6 +148,7 @@ public class playerControler : MonoBehaviour
     void TakeDamage(int damage)
     {
         healPoints -= damage;
+         SoundManager.instance.PlaySFX(SoundManager.instance.hurtAudio);
         characterAnimator.SetTrigger("ishurt");
 
         if(healPoints <= 0)
