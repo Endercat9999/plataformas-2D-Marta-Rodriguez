@@ -42,6 +42,11 @@ public class playerControler : MonoBehaviour
        {
          Attack();
        }
+
+       if(Input.GetKeyDown(KeyCode.P))
+       {
+         GameManager.instance.Pause();
+       }
         
     }
      
@@ -49,45 +54,43 @@ public class playerControler : MonoBehaviour
     
     void FixedUpdate()
     {
-        if(isAttacking)
-        {
-         characterRigidbody.velocity = new Vector2(0, characterRigidbody.velocity.y);
+        characterRigidbody.velocity = new Vector2(horizontalInput * characterSpeed, characterRigidbody.velocity.y);
 
-        }
-        else
-        {
-          characterRigidbody.velocity = new Vector2(horizontalInput * characterSpeed, characterRigidbody.velocity.y);
-
-        }
-         
     }
 
     void Movement()
     {
-         horizontalInput = Input.GetAxis("Horizontal");
+        if(isAttacking && horizontalInput == 0)
+        {
+            horizontalInput = 0;
+        }
+        else
+        {
+            horizontalInput = Input.GetAxis("Horizontal");
+        }
+        
+        
 
         if(horizontalInput < 0)
         {
            
-           if(isAttacking)
-           {
-            characterAnimator.SetTrigger("isRunAttacking");
+            if(!isAttacking)
+            {
+                transform.rotation = Quaternion.Euler(0, 180, 0);
+            }
+            
             characterAnimator.SetBool("isruning", true);
-           }
-           else
-           {
 
-            transform.rotation = Quaternion.Euler(0, 180, 0); 
-           characterAnimator.SetBool("isruning", true);
-
-           }
-           
-           
         }
+           
 
         else if(horizontalInput > 0)
         {
-           transform.rotation = Quaternion.Euler(0, 0, 0);
+            if(!isAttacking)
+           {
+                transform.rotation = Quaternion.Euler(0, 0, 0);
+           }
+           
            characterAnimator.SetBool("isruning", true); 
         }
         else
@@ -107,8 +110,10 @@ public class playerControler : MonoBehaviour
     void Attack()
     {
         StartCoroutine(AttackAnimation());
+        SoundManager.instance.PlaySFX(SoundManager.instance.attackAudio);
         characterAnimator.SetTrigger("Attack");
     }
+    
 
     IEnumerator AttackAnimation()
     {
@@ -139,9 +144,9 @@ public class playerControler : MonoBehaviour
 
     
 
-    void TakeDamage()
+    void TakeDamage(int damage)
     {
-        healPoints--;
+        healPoints -= damage;
         characterAnimator.SetTrigger("ishurt");
 
         if(healPoints <= 0)
@@ -168,7 +173,7 @@ public class playerControler : MonoBehaviour
         {
             //characterAnimator.SetTrigger("ishurt");
             //Destroy(gameObject, 0.3f);
-            TakeDamage();
+            TakeDamage(1);
         }
     }
 
