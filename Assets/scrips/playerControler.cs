@@ -148,7 +148,7 @@ public class playerControler : MonoBehaviour
     void TakeDamage(int damage)
     {
         healPoints -= damage;
-         SoundManager.instance.PlaySFX(SoundManager.instance.hurtAudio);
+        SoundManager.instance.PlaySFX(SoundManager.instance.hurtAudio);
         characterAnimator.SetTrigger("ishurt");
 
         if(healPoints <= 0)
