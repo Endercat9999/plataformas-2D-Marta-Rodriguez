@@ -6,7 +6,7 @@ public class SoundManager : MonoBehaviour
 {
    public static SoundManager instance;
 
-   private AudioSource _audioSource;
+   public AudioSource _audioSource;
 
    public AudioClip coinAudio;
 
@@ -21,6 +21,8 @@ public class SoundManager : MonoBehaviour
    public AudioClip pauseAudio;
 
    public AudioClip runAudio;
+
+   public AudioClip sonidoEnemigo;
    
    
    void Awake()
@@ -42,9 +44,9 @@ public class SoundManager : MonoBehaviour
         _audioSource.PlayOneShot(coinAudio);
    }*/
 
-    public void PlaySFX(AudioClip clip)
+    public void PlaySFX(AudioSource source, AudioClip clip)
     {
-        _audioSource.PlayOneShot(clip);
+        source.PlayOneShot(clip);
     }
     
 
