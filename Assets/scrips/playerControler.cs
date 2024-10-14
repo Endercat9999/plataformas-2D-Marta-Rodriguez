@@ -40,7 +40,8 @@ public class playerControler : MonoBehaviour
        
        if(Input.GetButtonDown("Fire1") && GroundSensor.isGrounded && !isAttacking)
        {
-         Attack();
+         //Attack();
+         StartAttack();
        }
 
        if(Input.GetKeyDown(KeyCode.P))
@@ -108,7 +109,7 @@ public class playerControler : MonoBehaviour
         characterAnimator.SetBool("isjumping", true);
     }
 
-    void Attack()
+    /*void Attack()
     {
         StartCoroutine(AttackAnimation());
         SoundManager.instance.PlaySFX(SoundManager.instance._audioSource, SoundManager.instance.attackAudio);
@@ -139,6 +140,36 @@ public class playerControler : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
 
+        isAttacking = false;
+    }*/
+
+
+    void StartAttack()
+    {
+        isAttacking = true;
+        characterAnimator.SetTrigger("Attack");
+    }
+
+    void Attack()
+    {
+        Collider2D[] collider = Physics2D.OverlapCircleAll(attackHitBox.position, attackRadius);
+
+        foreach(Collider2D enemy in collider)
+        {
+            if(enemy.gameObject.CompareTag("Mimic"))
+            {
+                //Destroy(enemy.gameObject);
+                Rigidbody2D enemyRigidBody = enemy.GetComponent<Rigidbody2D>();
+                enemyRigidBody.AddForce(transform.right + transform.up  * 2, ForceMode2D.Impulse);
+
+                Enemy enemyScript = enemy.GetComponent<Enemy>();
+                enemyScript.TakeDamage();
+            }
+        }   
+    }
+
+    void EndAttack()
+    {
         isAttacking = false;
     }
 
