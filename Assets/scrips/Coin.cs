@@ -34,6 +34,7 @@ public class Coin : MonoBehaviour
     {
         if(collider.gameObject.CompareTag("Player"))
         {
+             
             interectable = false;
         }
     }

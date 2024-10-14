@@ -9,9 +9,12 @@ public class GameManager : MonoBehaviour
 
     private int coins = 0;
 
+    private int star = 0;
+
     private bool isPaused;
 
     [SerializeField] Text _coinText;
+    [SerializeField] Text _starText;
 
     [SerializeField] GameObject _pauseCanvas;
 
@@ -49,6 +52,13 @@ public class GameManager : MonoBehaviour
     {
         coins++;
         _coinText.text = coins.ToString(); 
+    }
+
+    public void AddStar()
+    {
+        star++;
+        _starText.text = star.ToString();
+
     }
 
 }
