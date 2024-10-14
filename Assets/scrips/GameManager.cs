@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class GameManager : MonoBehaviour
     private int coins = 0;
 
     private bool isPaused;
+
+    [SerializeField] Text _coinText;
 
     [SerializeField] GameObject _pauseCanvas;
 
@@ -45,6 +48,7 @@ public class GameManager : MonoBehaviour
     public void AddCoin()
     {
         coins++;
+        _coinText.text = coins.ToString(); 
     }
 
 }
