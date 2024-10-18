@@ -10,8 +10,8 @@ public class playerControler : MonoBehaviour
     private float horizontalInput;
    [SerializeField]private float characterSpeed = 4.5f;
    [SerializeField]private float jumpForce = 8; 
-   [SerializeField] private int _maxHealth = 5;
-   [SerializeField] private int _currentHealth;
+    public int _maxHealth {get; private set;} = 5;
+    public int _currentHealth {get; private set;}
    private bool isAttacking;
    [SerializeField] private Transform attackHitBox;
    [SerializeField] private float attackRadius;
@@ -202,6 +202,13 @@ public class playerControler : MonoBehaviour
     public void AddHealth()
     {
         _currentHealth++;
+
+        if(_currentHealth > _maxHealth)
+        {
+            _currentHealth = _maxHealth;
+        }
+
+
         GameManager.instance.UpdateHealthBar(_currentHealth);
     }
 

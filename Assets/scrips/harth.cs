@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class harth : MonoBehaviour
 {
+    
     private playerControler playerScript;
     private bool interectable;
     // Start is called before the first frame update
@@ -11,8 +12,13 @@ public class harth : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.E) && interectable)
         {
-            playerScript.AddHealth();
-            Destroy(gameObject);
+            if(playerScript._currentHealth < playerScript._maxHealth)
+            {
+               playerScript.AddHealth();
+
+                Destroy(gameObject); 
+            }
+            
         }
     }
 
@@ -21,7 +27,7 @@ public class harth : MonoBehaviour
         if(collider.gameObject.CompareTag("Player"))
         {
             interectable = true;
-            playerScript =collider.gameObject.GetComponent<playerControler>();
+            playerScript = collider.gameObject.GetComponent<playerControler>();
         }
     }
 
