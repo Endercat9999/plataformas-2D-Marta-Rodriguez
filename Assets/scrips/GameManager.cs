@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] GameObject _pauseCanvas;
     [SerializeField] Animator _pausePanelAnimation;
+    [SerializeField] private Slider _healBar;
 
 
     void Awake()
@@ -73,11 +74,22 @@ public class GameManager : MonoBehaviour
         _coinText.text = coins.ToString(); 
     }
 
+    public void SetHealthBar(int maxHealth)
+    {
+        _healBar.maxValue = maxHealth;
+        _healBar.value = maxHealth;
+    }
+
     public void AddStar()
     {
         star++;
         _starText.text = star.ToString();
 
+    }
+
+    public void UpdateHealthBar(int health)
+    {
+        _healBar.value = health; 
     }
 
 }
