@@ -816,11 +816,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _audioSource: {fileID: 0}
-  coinAudio: {fileID: 0}
-  jumpAudio: {fileID: 0}
+  coinAudio: {fileID: 8300000, guid: c82cd4bb7822a354f9547ae19dcc0ab6, type: 3}
+  jumpAudio: {fileID: 8300000, guid: 116bad7952eac0544a0d691237a3ad29, type: 3}
   dieAudio: {fileID: 0}
-  attackAudio: {fileID: 0}
-  hurtAudio: {fileID: 0}
+  attackAudio: {fileID: 8300000, guid: 72f78af47d7967e4fa3e02ffa46f187e, type: 3}
+  hurtAudio: {fileID: 8300000, guid: f0ce5a2eb71b7a8419c1932aec067852, type: 3}
   pauseAudio: {fileID: 0}
   runAudio: {fileID: 0}
   sonidoEnemigo: {fileID: 0}
