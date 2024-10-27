@@ -209,7 +209,7 @@ Transform:
   m_GameObject: {fileID: 88063515}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.2281919, y: -1.7849799, z: -10}
+  m_LocalPosition: {x: -3.2350762, y: -1.78499, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -823,7 +823,8 @@ MonoBehaviour:
   hurtAudio: {fileID: 8300000, guid: f0ce5a2eb71b7a8419c1932aec067852, type: 3}
   pauseAudio: {fileID: 0}
   runAudio: {fileID: 0}
-  sonidoEnemigo: {fileID: 0}
+  sonidoEnemigo: {fileID: 8300000, guid: 72f78af47d7967e4fa3e02ffa46f187e, type: 3}
+  starAudio: {fileID: 8300000, guid: b73b6c17e51cd9c4f8e27af38d39920f, type: 3}
 --- !u!82 &517669743
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1193,7 +1194,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 72f78af47d7967e4fa3e02ffa46f187e, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1

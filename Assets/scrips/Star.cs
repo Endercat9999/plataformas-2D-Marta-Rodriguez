@@ -16,11 +16,12 @@ public class Star : MonoBehaviour
         
     }
 
-    void OnTriggerEnter2D(Collider2D collider)
+    void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collider.gameObject.CompareTag("Player"))
+        if(collision.CompareTag("Player"))
         {
-            GameManager.instance.AddStar();
+            SoundManager.instance.PlaySFX(SoundManager.instance._audioSource, SoundManager.instance.starAudio);
+
             Destroy(gameObject);
         }
         

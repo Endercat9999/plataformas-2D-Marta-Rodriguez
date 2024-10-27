@@ -23,6 +23,7 @@ public class SoundManager : MonoBehaviour
    public AudioClip runAudio;
 
    public AudioClip sonidoEnemigo;
+   public AudioClip starAudio;
    
    
    void Awake()

@@ -157,6 +157,7 @@ public class playerControler : MonoBehaviour
     void Attack()
     {
         Collider2D[] collider = Physics2D.OverlapCircleAll(attackHitBox.position, attackRadius);
+        SoundManager.instance.PlaySFX(SoundManager.instance._audioSource, SoundManager.instance.attackAudio);
 
         foreach(Collider2D enemy in collider)
         {
